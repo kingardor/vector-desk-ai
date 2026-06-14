@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vector — AI Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Top bar ───────────────────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <svg class="brand-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <polygon points="10,1 19,6 19,14 10,19 1,14 1,6" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <polygon points="10,5 15,8 15,12 10,15 5,12 5,8" fill="currentColor" opacity="0.3"/>
+      </svg>
+      <span class="brand-name">VECTOR</span>
+    </div>
+
+    <div class="topbar-status">
+      <span id="status-dot" class="status-dot" aria-hidden="true"></span>
+      <span id="status-chip" class="status-chip">waiting</span>
+    </div>
+
+    <nav class="topbar-controls" aria-label="Robot controls">
+      <button id="btn-wake" class="ctrl-btn" aria-label="Wake Vector">
+        <i data-lucide="power"></i>
+        <span class="ctrl-label">Wake</span>
+      </button>
+      <button id="btn-sleep" class="ctrl-btn" aria-label="Put Vector to sleep">
+        <i data-lucide="moon"></i>
+        <span class="ctrl-label">Sleep</span>
+      </button>
+      <button id="btn-mute" class="ctrl-btn" aria-label="Toggle microphone">
+        <i data-lucide="mic"></i>
+        <span class="ctrl-label">Mic</span>
+      </button>
+      <span class="ctrl-sep" aria-hidden="true"></span>
+      <button id="btn-reset" class="ctrl-btn ctrl-danger" aria-label="Reset conversation">
+        <i data-lucide="rotate-ccw"></i>
+        <span class="ctrl-label">Reset</span>
+      </button>
+    </nav>
+
+    <div class="topbar-conn">
+      <span id="conn-dot"   class="conn-dot offline" aria-hidden="true"></span>
+      <span id="conn-label" class="conn-label">connecting</span>
+    </div>
+  </header>
+
+  <!-- ── Main grid ─────────────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Left: avatar + status + camera -->
+    <aside class="avatar-panel" id="avatar-panel">
+
+      <!-- Eyes -->
+      <div class="avatar-scene">
+        <div class="avatar-glow" id="avatar-glow" aria-hidden="true"></div>
+        <div id="avatar" class="avatar" data-state="idle"
+             role="img" aria-label="Vector's emotional state">
+          <div class="eye-wrap eye-left"><div class="eye"></div></div>
+          <div class="eye-wrap eye-right"><div class="eye"></div></div>
+          <div class="think-dots" id="think-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sensor strip — battery, touch, status pills -->
+      <div class="sensor-strip" id="sensor-strip" aria-label="Robot sensors">
+
+        <!-- Battery -->
+        <div class="sensor-cell sensor-battery" id="sensor-battery">
+          <i data-lucide="battery-medium" id="bat-icon"></i>
+          <div class="bat-track" aria-hidden="true">
+            <div class="bat-fill" id="bat-fill"></div>
+          </div>
+          <span class="sensor-val" id="bat-label">--</span>
+        </div>
+
+        <!-- Touch indicator -->
+        <div class="sensor-cell sensor-touch" id="sensor-touch" aria-label="Touch sensor">
+          <i data-lucide="hand"></i>
+        </div>
+
+        <!-- Status pills -->
+        <div class="sensor-cell sensor-pills">
+          <span class="status-pill" id="pill-charging"  title="Charging"><i data-lucide="zap"></i></span>
+          <span class="status-pill" id="pill-charger"   title="On charger"><i data-lucide="plug"></i></span>
+          <span class="status-pill" id="pill-pickedup"  title="Picked up"><i data-lucide="arrow-up-from-dot"></i></span>
+          <span class="status-pill" id="pill-cliff"     title="Cliff detected"><i data-lucide="triangle-alert"></i></span>
+        </div>
+
+      </div>
+
+      <!-- Camera — below status strip -->
+      <div class="cam-wrap">
+        <img id="camera-img" src="/camera.mjpeg" alt="Live view from Vector's camera" />
+        <div class="cam-badge" aria-hidden="true">
+          <span class="cam-dot"></span>
+          <span>LIVE</span>
+        </div>
+      </div>
+
+      <p id="tl-hint" class="avatar-hint" aria-live="polite">Say "Vector" to start</p>
+
+    </aside>
+
+    <!-- Right: conversation -->
+    <section class="convo-panel" aria-label="Conversation">
+      <div id="timeline" class="timeline"
+           role="log" aria-live="polite" aria-label="Conversation history">
+        <div id="tl-empty" class="tl-empty">
+          <div class="empty-icon"><i data-lucide="radio"></i></div>
+          <p class="empty-title">No messages yet</p>
+          <p class="empty-sub">Say "Vector" or type below to begin</p>
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <input
+          id="text-input"
+          type="text"
+          class="msg-input"
+          placeholder="Message Vector…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type a message"
+        />
+        <button id="send-btn" class="send-btn" aria-label="Send">
+          <i data-lucide="arrow-up"></i>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>lucide.createIcons();</script>
+  <script src="app.js"></script>
+</body>
+</html>

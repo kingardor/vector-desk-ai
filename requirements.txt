@@ -1,0 +1,31 @@
+# Vector Desk AI — local AI brain for Anki Vector on Apple Silicon
+# Install with: uv pip install -r requirements.txt
+# Prerequisites: brew install portaudio ffmpeg
+
+# Vector SDK (wire-pod fork, supports Python 3.11/3.12)
+wirepod-vector-sdk
+
+# Local LLM + vision (Ollama Python client)
+ollama
+
+# STT — mlx-whisper (Metal-accelerated on Apple Silicon)
+mlx-whisper
+
+# VAD
+torch
+torchaudio
+silero-vad
+
+# Mic capture
+sounddevice
+scipy
+
+# Image handling
+numpy
+opencv-python
+Pillow
+
+# Web server + WebSocket hub
+fastapi
+uvicorn[standard]
+websockets

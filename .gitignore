@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Vector SDK credentials and config (stay on your machine)
+vector/
+
+# Logs and temp
+*.log
+dictate.wav
+/tmp/
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
