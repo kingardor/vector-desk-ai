@@ -17,7 +17,8 @@ import re
 from PIL import Image
 import ollama
 
-MODEL        = "qwen3-vl:2b-instruct"
+MODEL           = "qwen3.5:4b-q4_K_M"
+SUPPORTS_VISION = False   # text-only model; set True for qwen3-vl / InternVL etc.
 MAX_HISTORY  = 20   # total messages before compression triggers
 KEEP_RECENT  = 8    # newest messages always kept verbatim
 
@@ -43,7 +44,7 @@ class Brain:
         Automatically compresses history when it grows too long.
         """
         msg: dict = {"role": "user", "content": user_text}
-        if image is not None:
+        if image is not None and SUPPORTS_VISION:
             msg["images"] = [self._encode_image(image)]
 
         self._history.append(msg)
@@ -55,7 +56,7 @@ class Brain:
             options={
                 "temperature": 0.85,
                 "num_predict": 400,
-                "stop": ["\n\n"],
+                "stop": ["\n", "\n\n"],
                 "think": False,
             },
         )

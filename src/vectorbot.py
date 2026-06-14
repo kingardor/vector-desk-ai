@@ -135,16 +135,36 @@ class Action:
     # ── Motors ───────────────────────────────────────────────────────────────
 
     def drive(self, left_speed: float, right_speed: float) -> None:
-        self._robot.motors.set_wheel_motors(left_speed, right_speed)
+        fut = self._robot.motors.set_wheel_motors(left_speed, right_speed)
+        if hasattr(fut, "result"):
+            try:
+                fut.result(timeout=2.0)
+            except Exception as e:
+                print(f"[Action] drive error: {e}")
 
     def stop(self) -> None:
-        self._robot.motors.set_wheel_motors(0, 0)
+        fut = self._robot.motors.set_wheel_motors(0, 0)
+        if hasattr(fut, "result"):
+            try:
+                fut.result(timeout=2.0)
+            except Exception as e:
+                print(f"[Action] stop error: {e}")
 
     def head(self, speed: float) -> None:
-        self._robot.motors.set_head_motor(speed)
+        fut = self._robot.motors.set_head_motor(speed)
+        if hasattr(fut, "result"):
+            try:
+                fut.result(timeout=2.0)
+            except Exception:
+                pass
 
     def lift(self, speed: float) -> None:
-        self._robot.motors.set_lift_motor(speed)
+        fut = self._robot.motors.set_lift_motor(speed)
+        if hasattr(fut, "result"):
+            try:
+                fut.result(timeout=2.0)
+            except Exception:
+                pass
 
     # ── High-level timed actions ──────────────────────────────────────────────
 
