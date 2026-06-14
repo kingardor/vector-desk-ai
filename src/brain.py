@@ -17,7 +17,7 @@ import re
 from PIL import Image
 import ollama
 
-MODEL           = "qwen3-vl:4b-instruct-q4_K_M"
+MODEL           = "qwen3-vl:2b-instruct"
 SUPPORTS_VISION = True    # VL model — set False for text-only models
 MAX_HISTORY  = 20
 KEEP_RECENT  = 8
