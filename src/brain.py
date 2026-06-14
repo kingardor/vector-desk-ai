@@ -56,12 +56,14 @@ class Brain:
             options={
                 "temperature": 0.85,
                 "num_predict": 400,
-                "stop": ["\n", "\n\n"],
+                "stop": ["\n\n"],
                 "think": False,
             },
         )
 
-        reply: str = _THINK_RE.sub("", response["message"]["content"]).strip()
+        raw   = _THINK_RE.sub("", response["message"]["content"]).strip()
+        # Enforce ONE LINE: take the first non-empty line (model may lead with \n)
+        reply = next((l.strip() for l in raw.splitlines() if l.strip()), "")
         self._history.append({"role": "assistant", "content": reply})
         self._maybe_compress()
         return reply
