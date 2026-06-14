@@ -1,18 +1,78 @@
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
-*.pyo
-.venv/
-venv/
+*.py[codz]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
 *.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# Vector SDK credentials and config (stay on your machine)
-vector/
+# PyInstaller
+*.manifest
+*.spec
 
-# Logs and temp
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Logs
 *.log
-dictate.wav
-/tmp/
+
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff
+.ruff_cache/
 
 # macOS
 .DS_Store
@@ -21,3 +81,10 @@ dictate.wav
 .idea/
 .vscode/
 *.swp
+tempCodeRunnerFile.py
+
+# Vector SDK credentials and venv — stay on the machine that has the robot
+vector/
+
+# Temp audio
+dictate.wav
