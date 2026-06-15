@@ -80,7 +80,8 @@ class Brain:
             },
         )
 
-        raw   = response["message"]["content"]
+        raw   = response.message.content or ""
+        print(f"[Brain] eval={response.eval_count} done={response.done_reason!r} raw={raw[:80]!r}")
         reply = _extract_reply(raw)
         self._history.append({"role": "assistant", "content": reply})
         self._maybe_compress()

@@ -28,6 +28,7 @@ local_resource(
 local_resource(
     'vector-app',
     serve_cmd='.venv/bin/python app.py',
+    deps=['app.py', 'src/', 'prompts/', 'web/'],
     readiness_probe=probe(
         http_get=http_get_action(port=8000, path='/'),
         period_secs=3,
