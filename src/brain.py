@@ -62,7 +62,9 @@ class Brain:
     # ── Public ────────────────────────────────────────────────────────────────
 
     def chat(self, user_text: str, image: Image.Image | None = None) -> str:
-        msg: dict = {"role": "user", "content": user_text}
+        # /no_think disables the Qwen3 reasoning chain — without it the model
+        # spends all token budget on <think> blocks and content comes out empty.
+        msg: dict = {"role": "user", "content": user_text + " /no_think"}
         if image is not None and SUPPORTS_VISION:
             msg["images"] = [self._encode_image(image)]
 
@@ -72,11 +74,9 @@ class Brain:
         response = ollama.chat(
             model=self.model,
             messages=messages,
-            think=False,          # top-level param, not inside options
             options={
                 "temperature": 0.85,
-                "num_predict": 400,
-                "stop": ["\n\n"],
+                "num_predict": 2000,
             },
         )
 
